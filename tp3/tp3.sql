@@ -50,24 +50,41 @@ show index from libros;
 -- Ejercicio 1:
 -- Crea un índice compuesto en las columnas id_editorial y titulo de la tabla libros.
 
-create index i_editorialTitulo on editoriales(id_editorial, nombre_editorial);
+create index idx_libros_id_editorial_titulo on libros(id_editorial, titulo);
 
 -- Ejercicio 2:
 -- Crea un índice en la columna fecha_publicacion de la tabla libros.
-create index i_fechaPublicacion on libros(fecha_publicacion);
+
+create index idx_fechaPublicacion on libros(fecha_publicacion);
 
 -- Ejercicio 3:
 -- Elimina el índice idx_libros_id_editorial_titulo de la tabla libros.
 
-Ejercicio 4:
-Actualiza el índice idx_libros_id_editorial_titulo de la tabla libros para que sea un índice 
-único en la columna id_editorial.
+drop index idx_libros_id_editorial_titulo on editoriales;
 
-Ejercicio 5: 
-¿Se puede usar alter para resolver el ejercicio anterior?
+-- Ejercicio 4:
+-- Actualiza el índice idx_libros_id_editorial_titulo de la tabla libros para que sea un índice 
+-- único en la columna id_editorial.
 
-Ejercicio 6:
-Crea un índice único en la columna id_editorial de la tabla editoriales.
+alter table libros 
+drop index idx_libros_id_editorial_titulo,
+add unique idx_libros_id_editorial(id_editorial);
 
-Ejercicio 7:
-Crea un índice primary en la columna id_libro de la tabla libros.
+-- Ejercicio 5: 
+-- ¿Se puede usar alter para resolver el ejercicio anterior?
+
+-- No, no se puede utilizar alter. 
+ 
+-- Ejercicio 6:
+-- Crea un índice único en la columna id_editorial de la tabla editoriales.
+
+create unique index idx_editoriales_id_editorial on editoriales(id_editorial);
+
+-- Ejercicio 7:
+-- Crea un índice primary en la columna id_libro de la tabla libros.
+
+alter table libros
+drop primary key;
+
+alter table libros
+add primary key (id_libro);
