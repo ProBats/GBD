@@ -111,6 +111,7 @@ SELECT * FROM EDITORIALES;
 delete from empleado where id_empleado = 9;
 -- 9.	Eliminar una editorial y sus empleados: ¿Cómo se eliminaría una editorial y todos sus empleados?
 
+delete from editoriales where id_editorial = 3;
 -- ELIMINANDO SOLO LA EDITORIAL, SE ELIMINAN LOS EMPLEADOS POR LA ACCION REFERENCIAL CACADE
 
 -- 10.	Eliminar una editorial y transferir sus empleados a otra editorial: ¿Cómo se eliminaría una editorial y reasignaría a sus empleados a otra editorial?
