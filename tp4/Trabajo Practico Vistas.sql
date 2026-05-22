@@ -5,7 +5,7 @@ use pubs;
 
 -- Ejercicio 1: Crea una vista que muestre el título, el autor, el precio y la cantidad vendida de todos los libros de la tabla sales por cada tienda, tipo de libro, año de publicación y mes de publicación.
 
-create view if not exists v_libros_vendidos AS
+create view v_libros_vendidos AS
 select t.title Titulo,concat (a.au_fname,' ',a.au_lname) 'Autor', t.price,sum(s.qty) 'Cantidad vendida', st.stor_name 'Tienda', t.type, year(t.pubdate) 'Año de Publicacion', month(t.pubdate) 'Mes de publicacion'
 from stores st
 join sales s on st.stor_id = s.stor_id
@@ -21,7 +21,7 @@ drop view v_libros_vendidos;
 
 -- Ejercicio 2: Crea una vista que muestre el título, el autor, el precio y la cantidad vendida de todos los libros de la tabla sales por cada tienda, tipo de libro y año de publicación, pero solo para las ventas que superaron los 10 libros.
 
-create view if not exists v_libros_ventas_mayor_10 AS
+create view v_libros_ventas_mayor_10 AS
 select t.title Titulo,concat (a.au_fname,' ',a.au_lname) 'Autor', t.price Precio,sum(s.qty) 'Cantidad vendida', st.stor_name 'Tienda', t.type Categoria, year(t.pubdate) 'Año de Publicacion'
 from stores st
 join sales s on st.stor_id = s.stor_id
@@ -36,7 +36,7 @@ drop view v_libros_ventas_mayor_10;
 
 -- Ejercicio 3: Crea una vista que muestre el título, el autor, el precio y la cantidad vendida de todos los libros de la tabla sales por cada tienda, tipo de libro y año de publicación, pero solo para las ventas que se realizaron en el año 1990.
 
-create view if not exists v_libros_ventas_año_1990 AS
+create view v_libros_ventas_año_1990 AS
 select t.title Titulo,concat (a.au_fname,' ',a.au_lname) 'Autor', t.price Precio,sum(s.qty) 'Cantidad vendida', st.stor_name 'Tienda', t.type Categoria, year(t.pubdate) 'Año de Publicacion'
 from stores st
 join sales s on st.stor_id = s.stor_id
@@ -51,7 +51,7 @@ drop view v_libros_ventas_año_1990;
 
 -- Ejercicio 4: Crea una vista que muestre el título, el autor, el precio y la cantidad vendida de todos los libros de la tabla sales por cada tienda, tipo de libro y año de publicación, pero solo para las ventas que se realizaron entre 1990 y 1994.
 
-create view if not exists v_libros_ventas_entre_1990_1994 AS
+create view v_libros_ventas_entre_1990_1994 AS
 select t.title Titulo,concat (a.au_fname,' ',a.au_lname) 'Autor', t.price Precio,sum(s.qty) 'Cantidad vendida', st.stor_name 'Tienda', t.type Categoria, year(t.pubdate) 'Año de Publicacion'
 from stores st
 join sales s on st.stor_id = s.stor_id
@@ -67,7 +67,7 @@ drop view v_libros_ventas_entre_1990_1994;
 -- Ejercicio 5: Crea una vista que muestre el título, el autor, el precio y la cantidad vendida de todos los libros de la tabla sales por cada tienda, tipo de libro y año de publicación, pero solo para las ventas que se realizaron en la tienda con el ID 7066.
 
 --Tienda 7066 no tiene ventas, busco por la tienda 7067.
-create view if not exists v_libros_ventas_tienda_7067 AS
+create view v_libros_ventas_tienda_7067 AS
 select t.title Titulo,concat (a.au_fname,' ',a.au_lname) 'Autor', t.price Precio,sum(s.qty) 'Cantidad vendida', st.stor_name 'Tienda', t.type Categoria, year(t.pubdate) 'Año de Publicacion'
 from stores st
 join sales s on st.stor_id = s.stor_id
@@ -82,7 +82,7 @@ drop view v_libros_ventas_tienda_7067;
 
 -- Ejercicio 6: Crea una vista que muestre el título, el autor, el precio y la cantidad vendida de todos los libros de la tabla sales por cada tienda, tipo de libro y año de publicación, pero solo para las ventas que se realizaron por el autor con el ID 172.
 
-create view if not exists v_libros_ventas_autor_172 AS
+create view v_libros_ventas_autor_172 AS
 select t.title Titulo,concat (a.au_fname,' ',a.au_lname) 'Autor', t.price Precio,sum(s.qty) 'Cantidad vendida', st.stor_name 'Tienda', t.type Categoria, year(t.pubdate) 'Año de Publicacion'
 from stores st
 join sales s on st.stor_id = s.stor_id
@@ -99,7 +99,7 @@ drop view v_libros_ventas_autor_172;
 -- Actualización de datos en tablas mediante la actualización de vistas:
 
 -- Ejercicio 7: Crea una vista que permita actualizar el precio de un libro en la tabla titles.
-create view IF NOT EXISTS v_actualizar_precio_libro AS
+create view v_actualizar_precio_libro AS
 select title_id, title, price
 from titles;
 
@@ -109,7 +109,7 @@ set price = 21.00
 where title_id = 1;
 
 -- Ejercicio 8: Crea una vista que permita actualizar el nombre de un autor en la tabla authors.
-create view if NOT EXISTS v_actualizar_nombre_autor AS
+create view v_actualizar_nombre_autor AS
 select au_id, au_fname, au_lname
 from authors;
 drop VIEW v_actualizar_nombre_autor;
@@ -121,7 +121,7 @@ where au_id = 172;
 
 -- Ejercicio 9: Crea una vista que permita actualizar la cantidad vendida de un libro en la tabla sales.
 
-create view IF NOT EXISTS v_actualizar_cantidad_vendida AS
+create view v_actualizar_cantidad_vendida AS
 select stor_id, title_id, qty
 from sales;
 
@@ -132,7 +132,7 @@ where title_id = 1 and stor_id = 7067;
 
 
 -- Ejercicio 10: Crea una vista que permita actualizar la fecha de publicación de un libro en la tabla titles.
-create view IF NOT EXISTS v_actualizar_fecha_publicacion AS
+create view v_actualizar_fecha_publicacion AS
 select title_id, title, pubdate
 from titles;
 
