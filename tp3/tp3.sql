@@ -60,7 +60,7 @@ create index idx_fechaPublicacion on libros(fecha_publicacion);
 -- Ejercicio 3:
 -- Elimina el índice idx_libros_id_editorial_titulo de la tabla libros.
 
-drop index idx_libros_id_editorial_titulo on editoriales;
+drop index idx_libros_id_editorial_titulo on libros;
 
 -- Ejercicio 4:
 -- Actualiza el índice idx_libros_id_editorial_titulo de la tabla libros para que sea un índice 
