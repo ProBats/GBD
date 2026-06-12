@@ -71,6 +71,49 @@ from t.titles t
 where t.title <> ''
 group by t.title_id, t.title
 order by 'Ingreso total' desc;
+
 -- Ejercicio 4: Crear una función para obtener el nombre completo de un empleado a partir de su código.
+use pubs;
+delimiter //
+drop function if exists fn_nombreCompletoEmpleado //
+create function fn_nombreCompletoEmpleado(p_emp_id INT)
+returns varchar(100)
+DETERMINISTIC
+reads sql data
+begin
+    declare nombreCompleto varchar(100);
+    select concat(fname, ' ', lname) 
+    into nombreCompleto
+    from employee
+    where emp_id = p_emp_id;
+
+    return nombreCompleto;
+end //
+delimiter;
+
+SELECT fn_nombreCompletoEmpleado(41) AS NombreCompleto;
+
 
 -- Ejercicio 5: Crear una función para calcular el precio promedio de libros publicados de cada editorial.
+
+delimiter //
+drop function if exists fn_precioPromedioEditorial //   
+create function fn_precioPromedioEditorial(p_pub_id varchar(4))
+returns decimal(15,2)   
+DETERMINISTIC
+reads sql data
+begin
+    declare precioPromedio decimal(15,2);
+    select avg(price) 
+    into precioPromedio
+    from titles
+    where pub_id = p_pub_id and price is not null;
+    return precioPromedio;
+end //
+delimiter;
+
+SELECT pub_id, fn_precioPromedioEditorial(pub_id) AS PrecioPromedio
+FROM titles
+WHERE pub_id <> '' and pub_id is not null  
+GROUP BY pub_id
+ORDER BY PrecioPromedio DESC;
