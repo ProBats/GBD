@@ -406,27 +406,121 @@ select * from mysql.user;
 
 -- a) Activar la base de datos "local" y luego imprimir las colecciones existentes.
 
+use ('local');
+db.getCollectionNames()
 
-b) Activar la base de datos "test" y luego imprimir las colecciones existentes.
-c) Activar la base de datos "baseEjemplo2".
-d) Mostrar las colecciones existentes en la base de datos "baseEjemplo2".
-e) Crear otra colección llamada usuarios donde almacenar dos documentos con los 
-campos nombre y clave.
-f) Mostrar nuevamente las colecciones existentes en la base de datos "baseEjemplo2".
 
-En la base pubs:
-g) Insertar 2 documentos en la colección clientes con '_id' no repetidos
-h) Intentar insertar otro documento con clave repetida.
-i) Mostrar todos los documentos de la colección libros.
+-- b) Activar la base de datos "test" y luego imprimir las colecciones existentes.
 
-j) Crear una base de datos llamada "blog".
-k) Agregar una colección llamada "posts" e insertar 1 documento con una estructura a 
-su elección.
-l) Mostrar todas las bases de datos actuales.
-m) Eliminar la colección "posts"
-n) Eliminar la base de datos "blog" y mostrar las bases de datos existentes.
+use ('test');
+db.getCollectionNames()
 
-11 - A partir de la siguiente especificación deberá recolectar datos para poder diseñar una Base de Datos.
+-- c) Activar la base de datos "baseEjemplo2".
+use ('baseEjemplo2');
+-- d) Mostrar las colecciones existentes en la base de datos "baseEjemplo2".
+use ('baseEjemplo2');
+db.getCollectionNames()
+
+-- e) Crear otra colección llamada usuarios donde almacenar dos documentos con los campos nombre y clave.
+
+use ('baseEjemplo2');
+db.createCollection('usuarios')
+
+use ('baseEjemplo2');
+item1 = {
+    id_user : 1,
+    Nombre : "Max" 
+};
+
+item2 = {
+    id_user : 2,
+    Nombre : "Elvis" 
+};      
+
+db.usuarios.insert([item1, item2]);
+
+db.usuarios.find();
+
+
+-- f) Mostrar nuevamente las colecciones existentes en la base de datos "baseEjemplo2".
+use ('baseEjemplo2');
+db.getCollectionNames()
+
+-- En la base pubs:
+-- g) Insertar 2 documentos en la colección clientes con '_id' no repetidos
+
+use ('pubs');
+item1 = {
+    _id : 2,
+    nombre : "Max Rodriguez",
+    domicilio : 'Laguna y Lacarra m3. c17',
+    provincia : 'Buenos Aires'
+};
+
+item2 = {
+    _id : 3,
+    nombre : "Elvis Morales",
+    domicilio : 'Los Piletones c.10',
+    provincia : 'Buenos Aires'
+};    
+
+db.clientes.insert([item1, item2]);
+
+db.clientes.find();
+
+-- h) Intentar insertar otro documento con clave repetida.
+
+--no se puede porque lanza error por llave duplicada.
+use ('pubs');
+item3 = {
+    _id : 2,
+    nombre : "Yamila Suncion",
+    domicilio : 'Castro Barros 1500',
+    provincia : 'Buenos Aires'
+};  
+
+db.clientes.insert(item3);
+
+db.clientes.find();
+
+-- i) Mostrar todos los documentos de la colección libros.
+use ('pubs');
+db.libros.find();
+
+-- j) Crear una base de datos llamada "blog".
+use ('blog');
+-- k) Agregar una colección llamada "posts" e insertar 1 documento con una estructura a su elección.
+
+use ('blog');
+db.createCollection('posts')
+
+use('blog')
+db.posts.insertOne({titulo : 'Introduccion a mongoDB',
+                    contenido : 'MongoDB es una base de datos NoSQL orientada a documentos...',
+                    autor : 'Juan Perez'
+                    });
+
+
+-- l) Mostrar todas las bases de datos actuales.
+show dbs;
+
+-- m) Eliminar la colección "posts"
+
+use ('blog');
+db.posts.drop()
+
+
+use('blog')
+db.getCollectionNames()
+
+-- n) Eliminar la base de datos "blog" y mostrar las bases de datos existentes.
+
+use ('blog');
+db.dropDatabase()
+
+show dbs;
+
+11 - A partir de la siguiente especificación deberá recolectar datos para poder diseñar una Base de Datos.  
 
 a) Determinar las entidades relevantes al Sistema.
 b) Determinar los atributos de cada entidad.
